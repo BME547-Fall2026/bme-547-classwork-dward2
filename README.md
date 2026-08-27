@@ -11,6 +11,7 @@ interface will have is:
    + Age
    + Name
    + Address
+   + Date of birth
   
 
 ## Contents
