@@ -14,6 +14,15 @@ def convert_str_to_float(input_value):
     return number
     
 
+def HDL_analysis(HDL_value):
+    if HDL_value >= 60:
+        answer = "Normal"
+    elif 40 <= HDL_value < 60:
+        answer = "Borderline Low"
+    else:
+        answer = "Low"
+    return answer
+  
     
     
 def controller():
