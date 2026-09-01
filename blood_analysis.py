@@ -9,6 +9,13 @@ def user_input():
     return test_choice, test_value
     
     
+def convert_str_to_float(input_value):
+    number = float(input_value)
+    return number
+    
+
+    
+    
 def controller():
     test_choice, test_value = user_input()
     print(test_choice, test_value)
