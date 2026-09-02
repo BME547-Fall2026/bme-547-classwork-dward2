@@ -1,74 +1,64 @@
 <mxfile host="app.diagrams.net">
   <diagram name="Page-1" id="Nke9BcRYHoT0JgstKvBs">
-    <mxGraphModel dx="1984" dy="538" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2264" dy="743" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="sLWe1Jw_ZmYLkdDY2XRs-4" parent="1" style="swimlane;" value="Model" vertex="1">
-          <mxGeometry height="200" width="200" x="540" y="50" as="geometry" />
+          <mxGeometry height="270" width="320" x="420" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="CV3kKulG3LT65t2yNCqm-6" parent="sLWe1Jw_ZmYLkdDY2XRs-4" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="function: convert_str_to_float&lt;div&gt;parameters:&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;input_value: str&lt;br&gt;&lt;/div&gt;&lt;div&gt;returns:&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;number: float&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="110" width="170" x="20" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CV3kKulG3LT65t2yNCqm-8" parent="sLWe1Jw_ZmYLkdDY2XRs-4" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="function:&amp;nbsp; HDL_analysis&lt;div&gt;parameters:&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;HDL_value: float&lt;br&gt;&lt;/div&gt;&lt;div&gt;returns:&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;answer: str&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="150" x="20" y="160" as="geometry" />
         </mxCell>
         <mxCell id="sLWe1Jw_ZmYLkdDY2XRs-5" parent="1" style="swimlane;" value="View" vertex="1">
-          <mxGeometry height="200" width="200" x="110" y="40" as="geometry" />
+          <mxGeometry height="250" width="200" x="-220" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="CV3kKulG3LT65t2yNCqm-2" parent="sLWe1Jw_ZmYLkdDY2XRs-5" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="function: user_input&lt;div&gt;returns:&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;test_choice: str&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;test_value: str&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="120" x="30" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="CV3kKulG3LT65t2yNCqm-16" parent="sLWe1Jw_ZmYLkdDY2XRs-5" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="function: output_results&lt;div&gt;parameters:&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;test_name: str&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;test_value: float&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;test_result: str&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="140" x="30" y="150" as="geometry" />
         </mxCell>
         <mxCell id="sLWe1Jw_ZmYLkdDY2XRs-6" parent="1" style="swimlane;" value="Controller" vertex="1">
-          <mxGeometry height="200" width="200" x="325" y="290" as="geometry" />
+          <mxGeometry height="200" width="200" x="100" y="60" as="geometry">
+            <mxRectangle height="30" width="90" x="325" y="290" as="alternateBounds" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="sLWe1Jw_ZmYLkdDY2XRs-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Input:&lt;div&gt;Test Type&lt;/div&gt;&lt;div&gt;Test Value&lt;/div&gt;" vertex="1">
-          <mxGeometry height="60" width="120" x="40" y="560" as="geometry" />
+        <mxCell id="CV3kKulG3LT65t2yNCqm-1" parent="sLWe1Jw_ZmYLkdDY2XRs-6" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="function: controller" vertex="1">
+          <mxGeometry height="60" width="120" x="20" y="60" as="geometry" />
         </mxCell>
-        <mxCell id="sLWe1Jw_ZmYLkdDY2XRs-8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Output:&lt;div&gt;Analysis of Test Input&lt;/div&gt;" vertex="1">
-          <mxGeometry height="60" width="120" x="680" y="570" as="geometry" />
-        </mxCell>
-        <mxCell id="sLWe1Jw_ZmYLkdDY2XRs-9" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="Function:&amp;nbsp;&lt;div&gt;Accepts Input&lt;/div&gt;" vertex="1">
-          <mxGeometry height="80" width="80" x="130" y="930" as="geometry" />
-        </mxCell>
-        <mxCell id="sLWe1Jw_ZmYLkdDY2XRs-10" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="Calculations" vertex="1">
-          <mxGeometry height="80" width="80" x="385" y="680" as="geometry" />
-        </mxCell>
-        <mxCell id="sLWe1Jw_ZmYLkdDY2XRs-17" edge="1" parent="1" source="sLWe1Jw_ZmYLkdDY2XRs-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="sLWe1Jw_ZmYLkdDY2XRs-16" value="">
+        <mxCell id="CV3kKulG3LT65t2yNCqm-4" edge="1" parent="1" source="CV3kKulG3LT65t2yNCqm-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="CV3kKulG3LT65t2yNCqm-2" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="sLWe1Jw_ZmYLkdDY2XRs-11" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="Output" vertex="1">
-          <mxGeometry height="80" width="80" x="560" y="700" as="geometry" />
+        <mxCell id="CV3kKulG3LT65t2yNCqm-3" parent="1" style="shape=manualInput;boundedLbl=1;whiteSpace=wrap;html=1;" value="Keyboard&lt;div&gt;input&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="80" x="-350" y="90" as="geometry" />
         </mxCell>
-        <mxCell id="sLWe1Jw_ZmYLkdDY2XRs-13" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;shapeInside=1;fixedSize=1;" value="Keyboard Input:&lt;br&gt;Strings" vertex="1">
-          <mxGeometry height="80" width="120" x="-10" y="930" as="geometry" />
+        <mxCell id="CV3kKulG3LT65t2yNCqm-10" edge="1" parent="1" source="CV3kKulG3LT65t2yNCqm-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=classic;startFill=1;" target="CV3kKulG3LT65t2yNCqm-1">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="sLWe1Jw_ZmYLkdDY2XRs-15" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;shapeInside=1;fixedSize=1;" value="Test Name: str&lt;br&gt;Test Value: str" vertex="1">
-          <mxGeometry height="80" width="120" x="365" y="580" as="geometry" />
+        <mxCell id="CV3kKulG3LT65t2yNCqm-11" edge="1" parent="1" source="CV3kKulG3LT65t2yNCqm-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" target="CV3kKulG3LT65t2yNCqm-6">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="sLWe1Jw_ZmYLkdDY2XRs-16" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="Screen output&lt;br&gt;Test Name (str)&lt;div&gt;Test Value (str)&lt;/div&gt;&lt;div&gt;Analysis (str)&lt;/div&gt;" vertex="1">
-          <mxGeometry height="130" width="130" x="720" y="700" as="geometry" />
+        <mxCell id="CV3kKulG3LT65t2yNCqm-14" edge="1" parent="1" source="CV3kKulG3LT65t2yNCqm-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=classic;startFill=1;" target="CV3kKulG3LT65t2yNCqm-8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="220" />
+              <mxPoint x="340" y="220" />
+              <mxPoint x="340" y="260" />
+            </Array>
+          </mxGeometry>
         </mxCell>
-        <mxCell id="sLWe1Jw_ZmYLkdDY2XRs-20" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;shapeInside=1;fixedSize=1;" value="Test Name: str&lt;br&gt;Test Value: str&lt;br&gt;Analysis:str&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="80" width="120" x="450" y="770" as="geometry" />
+        <mxCell id="CV3kKulG3LT65t2yNCqm-17" edge="1" parent="1" source="CV3kKulG3LT65t2yNCqm-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;startArrow=classic;startFill=1;" target="CV3kKulG3LT65t2yNCqm-16">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="sLWe1Jw_ZmYLkdDY2XRs-21" parent="1" style="swimlane;" value="Calculations / Model&#xa;" vertex="1">
-          <mxGeometry height="240" width="550" x="280" y="870" as="geometry" />
+        <mxCell id="CV3kKulG3LT65t2yNCqm-18" parent="1" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;" value="Screen" vertex="1">
+          <mxGeometry height="80" width="120" x="-380" y="215" as="geometry" />
         </mxCell>
-        <mxCell id="sLWe1Jw_ZmYLkdDY2XRs-24" parent="sLWe1Jw_ZmYLkdDY2XRs-21" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;" value="Convert str to int/float" vertex="1">
-          <mxGeometry height="80" width="120" x="20" y="60" as="geometry" />
-        </mxCell>
-        <mxCell id="sLWe1Jw_ZmYLkdDY2XRs-25" parent="sLWe1Jw_ZmYLkdDY2XRs-21" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;shapeInside=1;fixedSize=1;" value="Test Name: str&lt;br&gt;Test Value: int/float" vertex="1">
-          <mxGeometry height="80" width="120" x="160" y="60" as="geometry" />
-        </mxCell>
-        <mxCell id="sLWe1Jw_ZmYLkdDY2XRs-26" parent="sLWe1Jw_ZmYLkdDY2XRs-21" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;" value="Analyze" vertex="1">
-          <mxGeometry height="80" width="120" x="290" y="60" as="geometry" />
-        </mxCell>
-        <mxCell id="sLWe1Jw_ZmYLkdDY2XRs-28" parent="sLWe1Jw_ZmYLkdDY2XRs-21" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;" value="HDL Analysis" vertex="1">
-          <mxGeometry height="80" width="120" x="360" y="160" as="geometry" />
-        </mxCell>
-        <mxCell id="sLWe1Jw_ZmYLkdDY2XRs-22" parent="sLWe1Jw_ZmYLkdDY2XRs-21" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;shapeInside=1;fixedSize=1;" value="Test Name: str&lt;br&gt;Test Value: str" vertex="1">
-          <mxGeometry height="80" width="120" x="-80" y="60" as="geometry" />
-        </mxCell>
-        <mxCell id="sLWe1Jw_ZmYLkdDY2XRs-23" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;shapeInside=1;fixedSize=1;" value="Test Name: str&lt;br&gt;Test Value: str&lt;br&gt;Analysis:str&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="80" width="120" x="700" y="940" as="geometry" />
-        </mxCell>
-        <mxCell id="sLWe1Jw_ZmYLkdDY2XRs-27" parent="1" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;" value="Test Choice" vertex="1">
-          <mxGeometry height="80" width="120" x="495" y="1020" as="geometry" />
-        </mxCell>
-        <mxCell id="sLWe1Jw_ZmYLkdDY2XRs-29" parent="1" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;" value="LDL Analysis" vertex="1">
-          <mxGeometry height="80" width="120" x="700" y="1120" as="geometry" />
+        <mxCell id="CV3kKulG3LT65t2yNCqm-19" edge="1" parent="1" source="CV3kKulG3LT65t2yNCqm-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="CV3kKulG3LT65t2yNCqm-18" value="">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
