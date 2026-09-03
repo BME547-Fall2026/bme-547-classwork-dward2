@@ -22,6 +22,17 @@ def HDL_analysis(HDL_value):
     else:
         answer = "Low"
     return answer
+    
+def LDL_analysis(LDL_value):
+    if LDL_value < 130:
+        answer = "Normal"
+    elif 130 <= LDL_value < 160:
+        answer = "Borderline High"
+    elif 160 <= LDL_value < 190:
+        answer = "High"
+    else:
+        answer = "Very High"
+    return answer
 
 def output_results(test_name, test_value, test_result):
     print("For a {} of value {}, the result is {}.".format(test_name, test_value, test_result))  
@@ -34,6 +45,9 @@ def controller():
     if test_choice == "1":
         result = HDL_analysis(test_value)
         test_name = "HDL"
+    elif test_choice == "2":
+        result = LDL_analysis(test_value)
+        test_name = "LDL"
     output_results(test_name, test_value, result)
 
     
