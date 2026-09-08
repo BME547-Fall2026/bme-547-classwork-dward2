@@ -1,5 +1,6 @@
 import pytest
 
+
 @pytest.mark.parametrize("HDL_value, expected", [
     (70, "Normal"),
     (45, "Borderline Low"),
@@ -25,10 +26,8 @@ def test_LDL_analysis(LDL_value, expected):
 
 
 # def test_user_input(mocker):
-#     mocker.patch("builtins.input", 
+#     mocker.patch("builtins.input",
 #                  side_effect=[1, -45])
 #     from blood_analysis import user_input
 #     answer = user_input()
 #     assert answer == False
-                 
-            
