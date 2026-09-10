@@ -17,6 +17,7 @@ def test_add():
     from ecg import add
     assert add(0.1, 0.2) == pytest.approx(0.3)
 
+
 """
 pytest -v --cov --cov-report=html test_ecg.py
 """
