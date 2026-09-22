@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 import controller
 
 text_font = ("Arial", 24)
@@ -19,10 +20,29 @@ def main_window():
         # Update the GUI with answer as needed
         status_label.configure(text=answer)
 
+    def load_combobox_cmd():
+        # Get needed data from the GUI
+        # Call another function to do the work
+        values = controller.get_patients_for_display()
+        # Update GUI as needed
+        patient_select.configure(values=values)
+
+    def load_patient_btn_cmd():
+        # Get needed data from the GUI
+        db_number = patient_select.current()
+        # Call another function to do the work
+        patient_name, patient_mrn, patient_dob = \
+            controller.get_patient_by_index(db_number)
+        # Update GUI as needed
+        name_value.set(patient_name)
+        mrn_value.set(patient_mrn)
+        dob_value.set(patient_dob)
+
     root = tk.Tk()
     root.title("Patient Monitor")
     root.geometry("800x500")
 
+    # Data Frame
     data_frame = tk.Frame(root,
                           borderwidth=2,
                           relief="groove")
@@ -33,6 +53,7 @@ def main_window():
                            font=text_font)
     title_label.grid(column=0, row=0)
 
+    # Patient Frame
     patient_frame = tk.Frame(root,
                              borderwidth=2,
                              relief="groove")
@@ -70,6 +91,27 @@ def main_window():
     status_label = tk.Label(root, font=status_font)
     status_label.grid(column=0, row=1, sticky=tk.W)
 
+    # Selection Frame
+    selection_frame = tk.Frame(root,
+                               borderwidth=2,
+                               relief="groove")
+    selection_frame.grid(column=1, row=1)
+    selection_title_label = tk.Label(selection_frame,
+                                     text="Select a Patient",
+                                     font=text_font)
+    selection_title_label.grid(column=0, row=0)
+
+    patient_select = ttk.Combobox(selection_frame,
+                                  postcommand=load_combobox_cmd,
+                                  font=text_font)
+    patient_select.grid(column=0, row=1)
+
+    load_patient_btn = tk.Button(selection_frame,
+                                 text="Load Patient",
+                                 font=text_font,
+                                 command=load_patient_btn_cmd)
+    load_patient_btn.grid(column=0, row=2)
+
     root.mainloop()
 
     print("End")
@@ -77,4 +119,5 @@ def main_window():
 
 if __name__ == "__main__":
     print("Start")
+    controller.initialize()
     main_window()
