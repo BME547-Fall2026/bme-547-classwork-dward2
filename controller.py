@@ -1,3 +1,5 @@
+from datetime import datetime
+
 db = []
 
 # "test": [("HDL", 165), {"LDL", 20)]
@@ -11,7 +13,7 @@ def new_patient(patient_name,
                "dob": patient_dob,
                "test": []}
     db.append(patient)
-    save_database()
+    # save_database()
     return "Patient added to database"
 
 
@@ -75,11 +77,17 @@ def load_tests_into_db():
     for line in all_lines:
         # Parse the data to get the mrn
         mrn, test_results = parse_test_line(line)
-        # Find the correct db entry based mrn
-        patient = get_patient_by_mrn(mrn)
-        # Add test result to correct patient
-        patient["test"].append(test_results)
+        add_test_to_patient(mrn, test_results)
     print(db)
+
+
+def add_test_to_patient(mrn, test_results):
+    # Find the correct db entry based mrn
+    print("mrn: {}".format(mrn))
+    print("db: {}".format(db))
+    patient = get_patient_by_mrn(mrn)
+    # Add test result to correct patient
+    patient["test"].append(test_results)
 
 
 def initialize():
@@ -104,3 +112,33 @@ def get_patient_by_index(i):
     return (patient["name"],
             patient["mrn"],
             patient["dob"])
+            
+            
+def calculate_age(mrn):
+    """
+    06-25-2011
+    """
+    patient = get_patient_by_mrn(mrn)
+    dob = patient["dob"]
+    birth_date = datetime.strptime(
+        dob, "%m-%d-%Y")
+    today = datetime.now()
+    age = today - birth_date
+    years = age.days/365
+    return years
+    
+    
+def is_minor(mrn):
+    age = calculate_age(mrn)
+    if age < 18:
+        return True
+    else:
+        return False
+    
+    
+    
+if __name__ == "__main__":
+    new_patient("Dave", "123", "01-01-2001")
+    print(calculate_age("123"))
+    
+    
