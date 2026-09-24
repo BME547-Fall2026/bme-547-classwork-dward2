@@ -5,6 +5,21 @@ db = []
 # "test": [("HDL", 165), {"LDL", 20)]
 
 
+class Patient:
+    
+    def __init__(self, p_name, p_mrn, p_dob):
+        self.name = p_name
+        self.mrn = p_mrn
+        p_dob = p_dob.replace("/", "-")
+        self.dob = p_dob
+        
+def create_patient():
+    new_patient = Patient("David Ward", 123, "01-01-2001")
+    other_patient = Patient("Other", 234, "02/02/2022")
+    print(new_patient.dob)
+    print(other_patient.dob)
+
+
 def new_patient(patient_name,
                 patient_mrn,
                 patient_dob):
@@ -138,7 +153,6 @@ def is_minor(mrn):
     
     
 if __name__ == "__main__":
-    new_patient("Dave", "123", "01-01-2001")
-    print(calculate_age("123"))
+    create_patient()
     
     
