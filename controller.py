@@ -1,39 +1,83 @@
+from datetime import datetime
+
 db = []
 
 # "test": [("HDL", 165), {"LDL", 20)]
 
 
+class Patient:
+
+    def __init__(self, p_name, p_mrn, p_dob):
+        self.name = p_name
+        self.mrn = p_mrn
+        p_dob = p_dob.replace("/", "-")
+        self.dob = p_dob
+        self.tests = []
+
+    def __eq__(self, other):
+        if type(self) is not type(other):
+            return False
+        if self.mrn != other.mrn:
+            return False
+        if self.name != other.name:
+            return False
+        if self.dob != other.dob:
+            return False
+        if self.tests != other.tests:
+            return False
+        return True
+
+    def __repr__(self):
+        return "Patient: {}, {}, {}".format(self.mrn,
+                                            self.name,
+                                            self.tests)
+
+    def calculate_age(self):
+        birth_date = datetime.strptime(
+            self.dob, "%m-%d-%Y")
+        today = datetime.now()
+        age = today - birth_date
+        years = age.days/365
+        return round(years, 1)
+
+    def is_minor(self):
+        age = self.calculate_age()
+        if age < 18:
+            return True
+        else:
+            return False
+
+
 def new_patient(patient_name,
                 patient_mrn,
                 patient_dob):
-    patient = {"name": patient_name,
-               "mrn": patient_mrn,
-               "dob": patient_dob,
-               "test": []}
+    patient = Patient(patient_name,
+                      patient_mrn,
+                      patient_dob)
     db.append(patient)
-    save_database()
+    # save_database()
     return "Patient added to database"
 
 
-def save_database():
-    out_file = open("patient_monitor_db.txt",
-                    "w")
-    for patient in db:
-        out_string = "{},{},{}\n".format(
-            patient["name"],
-            patient["mrn"],
-            patient["dob"])
-        out_file.write(out_string)
-    out_file.close()
+# def save_database():
+#     out_file = open("patient_monitor_db.txt",
+#                     "w")
+#     for patient in db:
+#         out_string = "{},{},{}\n".format(
+#             patient["name"],
+#             patient["mrn"],
+#             patient["dob"])
+#         out_file.write(out_string)
+#     out_file.close()
 
-    with open("patient_monitor_db.txt", "w") as out_file:
-        for patient in db:
-            out_string = "{},{},{}\n".format(
-                patient["name"],
-                patient["mrn"],
-                patient["dob"])
-            out_file.write(out_string)
-    print("done")
+#     with open("patient_monitor_db.txt", "w") as out_file:
+#         for patient in db:
+#             out_string = "{},{},{}\n".format(
+#                 patient["name"],
+#                 patient["mrn"],
+#                 patient["dob"])
+#             out_file.write(out_string)
+#     print("done")
 
 
 def read_database():
@@ -63,7 +107,7 @@ def parse_test_line(line):
 
 def get_patient_by_mrn(mrn):
     for patient in db:
-        if patient["mrn"] == mrn:
+        if patient.mrn == mrn:
             return patient
     return None
 
@@ -75,11 +119,17 @@ def load_tests_into_db():
     for line in all_lines:
         # Parse the data to get the mrn
         mrn, test_results = parse_test_line(line)
-        # Find the correct db entry based mrn
-        patient = get_patient_by_mrn(mrn)
-        # Add test result to correct patient
-        patient["test"].append(test_results)
+        add_test_to_patient(mrn, test_results)
     print(db)
+
+
+def add_test_to_patient(mrn, test_results):
+    # Find the correct db entry based mrn
+    print("mrn: {}".format(mrn))
+    print("db: {}".format(db))
+    patient = get_patient_by_mrn(mrn)
+    # Add test result to correct patient
+    patient.tests.append(test_results)
 
 
 def initialize():
@@ -94,13 +144,20 @@ def get_patients_for_display():
     output_list = []
     for patient in db:
         output_list.append("{} - {}".
-                           format(patient["name"],
-                                  patient["mrn"]))
+                           format(patient.name,
+                                  patient.mrn))
     return output_list
 
 
 def get_patient_by_index(i):
     patient = db[i]
-    return (patient["name"],
-            patient["mrn"],
-            patient["dob"])
+    return (patient.name,
+            patient.mrn,
+            patient.dob)
+
+
+if __name__ == "__main__":
+    x = Patient("Ann Ables", 123, "9/29/2011")
+    print(x.calculate_age())
+    print(x.is_minor())
+    print(x.mailing_address())

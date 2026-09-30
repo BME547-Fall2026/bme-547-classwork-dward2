@@ -1,2 +1,5 @@
 __pycache__
 .coverage
+db_test_data.txt
+patient_monitor_db.txt
+.vscode/settings.json
