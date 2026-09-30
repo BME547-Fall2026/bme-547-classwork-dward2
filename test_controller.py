@@ -12,20 +12,20 @@ def test_new_patient():
                        patient_dob)
     # Act
     answer = new_patient(patient_name, patient_mrn, patient_dob)
-    
+
     # Assert
     assert answer == "Patient added to database"
     assert len(db) == 1
     assert db[0] == expected
-                      
-                      
+
+
 def test_add_test_to_patient():
     # Arrange
     from controller import new_patient, add_test_to_patient, db
     db.clear()
     new_patient("Dave", 123, "1/1/11")
     mrn = 123
-    test_results= ("HDL", 56)
+    test_results = ("HDL", 56)
     # Act
     add_test_to_patient(mrn, test_results)
     # Assert
@@ -45,9 +45,9 @@ def test_Patient_init():
     assert answer.name == p_name
     assert answer.dob == "1-1-1111"
 
+
 def test_Patient_calculate_age():
     from controller import Patient
     patient = Patient("Ann Ables", 123, "9/29/2011")
     age = patient.calculate_age()
     assert age == pytest.approx(15, rel=0.1)
-

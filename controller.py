@@ -6,7 +6,7 @@ db = []
 
 
 class Patient:
-    
+
     def __init__(self, p_name, p_mrn, p_dob):
         self.name = p_name
         self.mrn = p_mrn
@@ -15,7 +15,7 @@ class Patient:
         self.tests = []
 
     def __eq__(self, other):
-        if type(self) != type(other):
+        if type(self) is not type(other):
             return False
         if self.mrn != other.mrn:
             return False
@@ -39,7 +39,7 @@ class Patient:
         age = today - birth_date
         years = age.days/365
         return round(years, 1)
-        
+
     def is_minor(self):
         age = self.calculate_age()
         if age < 18:
@@ -47,7 +47,7 @@ class Patient:
         else:
             return False
 
-    
+
 def new_patient(patient_name,
                 patient_mrn,
                 patient_dob):
@@ -154,19 +154,10 @@ def get_patient_by_index(i):
     return (patient.name,
             patient.mrn,
             patient.dob)
-            
-            
 
-    
-    
 
-    
-    
-    
 if __name__ == "__main__":
     x = Patient("Ann Ables", 123, "9/29/2011")
     print(x.calculate_age())
     print(x.is_minor())
     print(x.mailing_address())
-    
-    
