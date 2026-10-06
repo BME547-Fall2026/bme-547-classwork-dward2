@@ -13,8 +13,8 @@ def calc_square_root(n):
 
     answer = sqxrt(n)
     return answer
-    
-    
+
+
 def main():
     input_variable = 4
     try:
@@ -30,19 +30,14 @@ def main():
         print(e.__dir__())
         # print(e.traceback())
 
-    
 
-
-
-    
-    
 if __name__ == "__main__":
     main()
 """
 ERRORS
 DIVBYZERO    x = 3 / 0\
 TypeError  x = 3 + "Hello"
-SyntaxError  if 
+SyntaxError  if
 FileNotFoundError    open("file.sldkjfls", 'r')
 IndexError  x = [1, 2, 3]     x[6]
 
