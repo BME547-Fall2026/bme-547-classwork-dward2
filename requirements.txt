@@ -2,3 +2,6 @@ pytest
 pytest-pycodestyle
 pytest-mock
 pytest-cov
+numpy
+scipy
+matplotlib
