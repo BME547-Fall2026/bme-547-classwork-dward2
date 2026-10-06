@@ -1,6 +1,10 @@
 import tkinter as tk
 from tkinter import ttk
 import controller
+import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import time
 
 text_font = ("Arial", 24)
 status_font = ("Arial", 14)
@@ -10,6 +14,7 @@ def main_window():
 
     def submit_btn_cmd():
         # Get needed data from the GUI
+        nonlocal fig, ax_ecg, canvas
         patient_name = name_value.get()
         patient_mrn = mrn_value.get()
         patient_dob = dob_value.get()
@@ -19,6 +24,22 @@ def main_window():
                                         patient_dob)
         # Update the GUI with answer as needed
         status_label.configure(text=answer)
+        controller.start_patient()
+        time.sleep(0.1)
+        t, v = controller.get_latest_patient_ecg()
+        fig = Figure()
+        ax_ecg = fig.add_subplot()
+        ax_ecg.plot(t, v)
+        canvas = FigureCanvasTkAgg(fig, data_frame)
+        canvas.get_tk_widget().grid(column=0, row=1)
+        canvas.draw()
+        root.after(100, update_ecg_plot)
+
+    def update_ecg_plot():
+        t, v = controller.get_latest_patient_ecg()
+        ax_ecg.clear()
+        ax_ecg.plot(t, v)
+        canvas.draw()
 
     def load_combobox_cmd():
         # Get needed data from the GUI
@@ -41,6 +62,10 @@ def main_window():
     root = tk.Tk()
     root.title("Patient Monitor")
     root.geometry("800x500")
+
+    fig = None
+    ax_ecg = None
+    canvas = None
 
     # Data Frame
     data_frame = tk.Frame(root,

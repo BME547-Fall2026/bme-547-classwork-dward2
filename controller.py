@@ -1,8 +1,13 @@
 from datetime import datetime
 import logging
+from mockpatient import MockPatient
+import numpy as np
 
 
 db = []
+patient_monitor = None
+ecg_time = None
+ecg_voltage = None
 
 # "test": [("HDL", 165), {"LDL", 20)]
 
@@ -148,6 +153,7 @@ def initialize():
     load_tests_into_db()
     print("Database:")
     print(db)
+    
 
 
 def get_patients_for_display():
@@ -164,6 +170,19 @@ def get_patient_by_index(i):
     return (patient.name,
             patient.mrn,
             patient.dob)
+
+
+def start_patient():
+    global patient_monitor
+    patient_monitor = MockPatient()
+
+
+def get_latest_patient_ecg():
+    global ecg_time, ecg_voltage
+    t, v, _ = patient_monitor.get_data()
+    ecg_time = np.append(ecg_time, t)
+    ecg_voltage = np.append(ecg_voltage, v)
+    return ecg_time, ecg_voltage
 
 
 if __name__ == "__main__":
