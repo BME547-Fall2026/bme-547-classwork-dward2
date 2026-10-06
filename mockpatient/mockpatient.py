@@ -62,11 +62,11 @@ class MockPatient:
         Generate a synthetic arterial blood pressure waveform aligned to actual
         R-peak locations in the ECG data.
 
-        For each beat, the pressure pulse begins r_to_upstroke_delay_s after the
-        R-peak, rises over rise_time_s using a smoothstep, then decays
+        For each beat, the pressure pulse begins r_to_upstroke_delay_s after
+        the R-peak, rises over rise_time_s using a smoothstep, then decays
         exponentially toward DBP for the remainder of the beat.  Added a normal
-        distribution centered around the delayed T peak to simulate the dicrotic
-        notch.
+        distribution centered around the delayed T peak to simulate the
+        dicrotic notch.
 
         Args:
             n_samples (int): Total number of samples in the ECG array.
@@ -181,7 +181,8 @@ class MockPatient:
         """
         # ToDo:  Double check correctness of data if start_cycle != end_cycle
         current_time_ns = time.monotonic_ns()
-        end_cycle, end_index = self._convert_ns_to_cycles_index(current_time_ns)
+        end_cycle, end_index = self._convert_ns_to_cycles_index(
+            current_time_ns)
         start_cycle, start_index = self._convert_ns_to_cycles_index(
             self._last_acq_time_ns
         )
@@ -190,7 +191,8 @@ class MockPatient:
             ecg = self._voltage[start_index:end_index]
             bp = self._bp[start_index:end_index]
             prog_time = (
-                self._time[start_index:end_index] + end_cycle * self._final_time
+                self._time[start_index:end_index]
+                + end_cycle * self._final_time
             )
         else:
             ecg = self._voltage[start_index:]
@@ -209,7 +211,8 @@ class MockPatient:
             ecg = np.append(ecg, self._voltage[:end_index])
             bp = np.append(bp, self._bp[:end_index])
 
-            # NOTE: [:end_index] matches data slice; avoids length mismatch bug.
+            # NOTE: [:end_index] matches data slice;
+            #           avoids length mismatch bug.
             prog_time = np.append(
                 prog_time,
                 self._time[:end_index] + end_cycle * self._final_time

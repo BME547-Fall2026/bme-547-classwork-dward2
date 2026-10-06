@@ -153,7 +153,6 @@ def initialize():
     load_tests_into_db()
     print("Database:")
     print(db)
-    
 
 
 def get_patients_for_display():

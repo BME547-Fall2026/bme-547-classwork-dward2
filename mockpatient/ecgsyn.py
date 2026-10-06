@@ -28,9 +28,12 @@ def ecgsyn(*,
         hrstd: Standard deviation of heart rate [1 bpm default]
         lfhfractio: LF/HF ratio [0.5 default]
         sfint: Internal sampling frequency [512 Hertz default]
-        ti: angles (degrees) of extrema for [P Q R S T] [-70 -15 0 15 100 default]
-        ai: z-position of extrema for [P Q R S T] [1.2 -5 30 -7.5 0.75 default]
-        bi: Gaussian width of peaks for [P Q R S T] [0.25 0.1 0.1 0.1 0.4 default]
+        ti: angles (degrees) of extrema for [P Q R S T]
+            [-70 -15 0 15 100 default]
+        ai: z-position of extrema for [P Q R S T]
+            [1.2 -5 30 -7.5 0.75 default]
+        bi: Gaussian width of peaks for [P Q R S T]
+            [0.25 0.1 0.1 0.1 0.4 default]
 
     Returns:
         s: ECG (mv)
@@ -80,7 +83,7 @@ def ecgsyn(*,
     tstep = 1 / sfecg
     rrmean = (60 / hrmean)
     Nrr = 2**(math.ceil(np.log2(N*rrmean/trr)))
-    
+
     # Compute rr process
     rr0 = rrprocess(flo, fhi, flostd, fhistd, lfhfratio, hrmean, hrstd,
                     sampfreqrr, Nrr)
