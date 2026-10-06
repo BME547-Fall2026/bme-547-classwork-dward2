@@ -1,6 +1,11 @@
 from datetime import datetime
+from mockpatient import MockPatient
+import numpy as np
 
 db = []
+monitor = None
+ecg_time = None
+ecg_voltage = None
 
 # "test": [("HDL", 165), {"LDL", 20)]
 
@@ -154,6 +159,28 @@ def get_patient_by_index(i):
     return (patient.name,
             patient.mrn,
             patient.dob)
+
+
+def start_patient():
+    global monitor
+    monitor = MockPatient()
+
+
+def get_ecg_data():
+    global ecg_time, ecg_voltage
+    t, v, bp = monitor.get_data()
+    if ecg_time is None:
+        ecg_time = t
+    else:
+        ecg_time = np.append(ecg_time, t)
+    if ecg_voltage is None:
+        ecg_voltage = v
+    else:
+        ecg_voltage = np.append(ecg_voltage, v)
+    return ecg_time, ecg_voltage
+
+
+
 
 
 if __name__ == "__main__":

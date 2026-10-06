@@ -1,6 +1,11 @@
 import tkinter as tk
 from tkinter import ttk
+
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+
 import controller
+from matplotlib.figure import Figure
+
 
 text_font = ("Arial", 24)
 status_font = ("Arial", 14)
@@ -19,6 +24,8 @@ def main_window():
                                         patient_dob)
         # Update the GUI with answer as needed
         status_label.configure(text=answer)
+        controller.start_patient()
+        root.after(50, update_ecg)
 
     def load_combobox_cmd():
         # Get needed data from the GUI
@@ -38,9 +45,18 @@ def main_window():
         mrn_value.set(patient_mrn)
         dob_value.set(patient_dob)
 
+    def update_ecg():
+        t, v = controller.get_ecg_data()
+        ax_ecg.clear()
+        ax_ecg.plot(t, v)
+        ax_ecg.set_xlim(0, 5)
+        ax_ecg.set_yticks([])
+        canvas.draw()
+        root.after(50, update_ecg)
+
     root = tk.Tk()
     root.title("Patient Monitor")
-    root.geometry("800x500")
+    # root.geometry("800x500")
 
     # Data Frame
     data_frame = tk.Frame(root,
@@ -48,10 +64,18 @@ def main_window():
                           relief="groove")
     data_frame.grid(column=0, row=0, sticky=tk.N)
 
-    title_label = tk.Label(data_frame,
-                           text="Data Frame Placeholder",
-                           font=text_font)
-    title_label.grid(column=0, row=0)
+    # title_label = tk.Label(data_frame,
+    #                        text="Data Frame Placeholder",
+    #                        font=text_font)
+    # title_label.grid(column=0, row=0)
+
+    fig = Figure()
+    ax_ecg = fig.add_subplot()
+    ax_ecg.set_xlim(0, 5)
+    ax_ecg.set_yticks([])
+    canvas = FigureCanvasTkAgg(fig, data_frame)
+    canvas.get_tk_widget().grid(column=0, row=0)
+    canvas.draw()
 
     # Patient Frame
     patient_frame = tk.Frame(root,
