@@ -1,4 +1,6 @@
 from datetime import datetime
+import logging
+
 
 db = []
 
@@ -51,10 +53,16 @@ class Patient:
 def new_patient(patient_name,
                 patient_mrn,
                 patient_dob):
+    try:
+        mrn_number = int(patient_mrn)
+    except ValueError:
+        logging.error("MRN entered as not an integer")
+        return "MRN must be an integer"
     patient = Patient(patient_name,
                       patient_mrn,
                       patient_dob)
     db.append(patient)
+    logging.info("Patient name {} saved".format(patient_name))
     # save_database()
     return "Patient added to database"
 
@@ -133,6 +141,8 @@ def add_test_to_patient(mrn, test_results):
 
 
 def initialize():
+    logging.basicConfig(filename="gui_controller.log", level=logging.INFO,
+                        filemode="w")
     all_lines = read_database()
     populate_db(all_lines)
     load_tests_into_db()
