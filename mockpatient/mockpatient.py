@@ -2,11 +2,12 @@ import numpy as np
 from numpy import ndarray
 from .ecgsyn import ecgsyn
 import time
+from typing import Union
 
 
 class MockPatient:
 
-    def __init__(self):
+    def __init__(self, settings: Union[None, dict] = None):
         """
         First, a call to ecgsyn gets an ECG trace for a certain amount of time.
         Since ecgsyn starts the data at the top of an R peak, and we want the
@@ -18,7 +19,11 @@ class MockPatient:
         time of the patient is saved in the self._start_time_ns property.
 
         """
-        voltage, peaks = ecgsyn(N=128)
+        if settings is None:
+            settings = {"N": 128}
+        elif "N" not in settings:
+            settings["N"] = 128
+        voltage, peaks = ecgsyn(**settings)
         # have the last data point be the third from last peak with label 3
         indices = np.where(peaks == 3)[0]
         t_indices = np.where(peaks == 5)[0]
