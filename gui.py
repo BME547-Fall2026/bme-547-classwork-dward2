@@ -40,6 +40,7 @@ def main_window():
         ax_ecg.clear()
         ax_ecg.plot(t, v)
         canvas.draw()
+        root.after(100, update_ecg_plot)
 
     def load_combobox_cmd():
         # Get needed data from the GUI
@@ -61,7 +62,7 @@ def main_window():
 
     root = tk.Tk()
     root.title("Patient Monitor")
-    root.geometry("800x500")
+    # root.geometry("800x500")
 
     fig = None
     ax_ecg = None
