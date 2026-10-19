@@ -189,3 +189,12 @@ if __name__ == "__main__":
     print(x.calculate_age())
     print(x.is_minor())
     print(x.mailing_address())
+
+"""
+ dt = ecg_time[2] - ecg_time[1]
+    points = round(5 / dt)
+    start_point = len(ecg_time) - points
+    if start_point < 1:
+        start_point = 1
+    return ecg_time[start_point:], ecg_voltage[start_point:]
+"""
