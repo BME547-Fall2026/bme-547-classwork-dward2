@@ -42,11 +42,11 @@ def get_student_count():
     print("Number of students: {}".format(len(r.json())))
 
 
-
 def main():
     # get_work()
     # post_work()
     get_student_count()
+
 
 if __name__ == "__main__":
     main()
