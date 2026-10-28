@@ -43,6 +43,20 @@ def test_post_add_patient_bad_request():
     assert r.text == "Key dob is missing"
 
 
+@pytest.mark.parametrize("in_data, expected, ex_answer", [
+    (["hello"], {"one": int}, "JSON data needs to be a dictionary."),
+    ({"one": 15, "two": "hello"}, {"one": int, "two": str}, True),
+    ({"one": 15, "three": "good"}, {"one": int, "two": str},
+     "Key two is missing"),
+    ({"one": 15, "two": 15}, {"one": int, "two": str},
+     "Key two value is not <class 'str'>")
+])
+def test_generic_validate_input(in_data, expected, ex_answer):
+    from server import generic_validate_input
+    answer = generic_validate_input(in_data, expected)
+    assert answer == ex_answer
+
+
 def setup_patient():
     """
     Function to set up a patient for remaining tests
