@@ -58,10 +58,10 @@ def generic_validate_input(in_data, expected):
     """ Validates keywords and data types of dictionary inputs
 
     This helper function is called by a flask handler function to validate that
-    the keywords and data types sent to the server are those that were expected.
-    If an expected keyword is missing, or a value data types does not match the
-    expected, an error message is returned.  If the keys and data types do
-    match, True is returned.
+    the keywords and data types sent to the server are those that were
+    expected.  If an expected keyword is missing, or a value data types does
+    not match the expected, an error message is returned.  If the keys and data
+    types do match, True is returned.
 
     Args:
         in_data (dict): data received by the server to be validated
@@ -173,11 +173,11 @@ def post_add_test():
     in_data = request.get_json()
     expected = {"mrn": int, "test_name": str, "test_value": float}
     result = generic_validate_input(in_data, expected)
-    if expected is not True:
+    if result is not True:
         return result, 400
     exists = database.get_patient_by_mrn(in_data["mrn"])
     if exists is None:
-        return "MRN of {} does not exist".format(in_data["mrn"])
+        return "MRN of {} does not exist".format(in_data["mrn"]), 400
     answer = database.add_test_to_patient(in_data["mrn"],
                                           in_data["test_name"],
                                           in_data["test_value"])
