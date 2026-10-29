@@ -80,7 +80,7 @@ def get_patient_for_server(mrn):
 def add_test_to_patient(mrn, test_name, test_value):
     patient = get_patient_by_mrn(mrn)
     patient.tests.append((test_name, test_value))
-    print(db) # For debugging purposes
+    print(db)  # For debugging purposes
     return "Added test"
 
 

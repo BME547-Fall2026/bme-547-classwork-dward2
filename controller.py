@@ -68,7 +68,7 @@ def load_tests_into_db():
 
 
 def add_test_to_patient(mrn, test_results):
-    test_json = {"mrn": int(mrn), 
+    test_json = {"mrn": int(mrn),
                  "test_name": test_results[0],
                  "test_value": float(test_results[1])}
     r = requests.post(server+"/add_test", json=test_json)
@@ -105,9 +105,10 @@ def get_patient_by_index(choice):
     mrn = int(p_mrn.strip(" "))
     r = requests.get(server + "/get_patient/{}".format(mrn))
     patient_info = r.json()
-    return (patient_info["name"], 
+    return (patient_info["name"],
             patient_info["mrn"],
             patient_info["dob"])
+
 
 def start_patient():
     global patient_monitor
