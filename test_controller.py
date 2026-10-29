@@ -1,53 +1,43 @@
 import pytest
+import requests_mock
+# NOTE:  Logging functionality should also be tested,
+#        but not included here
 
 
-def test_new_patient():
+def test_new_patient(requests_mock):
     # Arrange
-    from controller import new_patient, db, Patient
+    from controller import new_patient, server
     patient_name = "David"
-    patient_mrn = 123
-    patient_dob = "1/1/11"
-    expected = Patient(patient_name,
-                       patient_mrn,
-                       patient_dob)
+    patient_mrn = "123"
+    patient_dob = "1/1/2001"
+    requests_mock.post(server + "/add_patient",
+                       status_code=200,
+                       json="Ok")
     # Act
     answer = new_patient(patient_name, patient_mrn, patient_dob)
-
     # Assert
-    assert answer == "Patient added to database"
-    assert len(db) == 1
-    assert db[0] == expected
+    assert answer == "Ok"
 
 
-def test_add_test_to_patient():
+def test_new_patient_server_error(requests_mock):
     # Arrange
-    from controller import new_patient, add_test_to_patient, db
-    db.clear()
-    new_patient("Dave", 123, "1/1/11")
-    mrn = 123
-    test_results = ("HDL", 56)
+    from controller import new_patient, server
+    patient_name = "David"
+    patient_mrn = "123"
+    patient_dob = "1/1/2001"
+    requests_mock.post(server + "/add_patient",
+                       status_code=400,
+                       text="Error")
     # Act
-    add_test_to_patient(mrn, test_results)
+    answer = new_patient(patient_name, patient_mrn, patient_dob)
     # Assert
-    from controller import get_patient_by_mrn
-    patient = get_patient_by_mrn(mrn)
-    assert patient.tests == [("HDL", 56)]
-    assert len(db) == 1
+    answer = "Error"
 
 
-def test_Patient_init():
-    from controller import Patient
-    p_name = "Ann Ables"
-    p_mrn = 123
-    p_dob = "1/1/1111"
-    answer = Patient(p_name, p_mrn, p_dob)
-    assert answer.mrn == p_mrn
-    assert answer.name == p_name
-    assert answer.dob == "1-1-1111"
-
-
-def test_Patient_calculate_age():
-    from controller import Patient
-    patient = Patient("Ann Ables", 123, "9/29/2011")
-    age = patient.calculate_age()
-    assert age == pytest.approx(15, rel=0.1)
+def test_new_patient_bad_mrn():
+    # Arrange
+    from controller import new_patient
+    # Act
+    answer = new_patient("David", "abc", "1/1/2001")
+    # Assert
+    assert answer == "MRN must be an integer"

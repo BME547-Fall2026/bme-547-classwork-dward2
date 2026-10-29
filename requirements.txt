@@ -6,4 +6,5 @@ numpy
 scipy
 matplotlib
 requests
+requests-mock
 flask
