@@ -1,4 +1,3 @@
-from datetime import datetime
 import logging
 from mockpatient import MockPatient
 import numpy as np
