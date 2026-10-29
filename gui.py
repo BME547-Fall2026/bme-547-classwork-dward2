@@ -51,10 +51,10 @@ def main_window():
 
     def load_patient_btn_cmd():
         # Get needed data from the GUI
-        db_number = patient_select.current()
+        choice = patient_select.get()
         # Call another function to do the work
         patient_name, patient_mrn, patient_dob = \
-            controller.get_patient_by_index(db_number)
+            controller.get_patient_by_index(choice)
         # Update GUI as needed
         name_value.set(patient_name)
         mrn_value.set(patient_mrn)
