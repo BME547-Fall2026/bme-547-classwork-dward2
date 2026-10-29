@@ -7,55 +7,9 @@ import requests
 server = "http://127.0.0.1:5000"
 
 
-db = []
 patient_monitor = None
 ecg_time = None
 ecg_voltage = None
-
-# "test": [("HDL", 165), {"LDL", 20)]
-
-
-class Patient:
-
-    def __init__(self, p_name, p_mrn, p_dob):
-        self.name = p_name
-        self.mrn = p_mrn
-        p_dob = p_dob.replace("/", "-")
-        self.dob = p_dob
-        self.tests = []
-
-    def __eq__(self, other):
-        if type(self) is not type(other):
-            return False
-        if self.mrn != other.mrn:
-            return False
-        if self.name != other.name:
-            return False
-        if self.dob != other.dob:
-            return False
-        if self.tests != other.tests:
-            return False
-        return True
-
-    def __repr__(self):
-        return "Patient: {}, {}, {}".format(self.mrn,
-                                            self.name,
-                                            self.tests)
-
-    def calculate_age(self):
-        birth_date = datetime.strptime(
-            self.dob, "%m-%d-%Y")
-        today = datetime.now()
-        age = today - birth_date
-        years = age.days/365
-        return round(years, 1)
-
-    def is_minor(self):
-        age = self.calculate_age()
-        if age < 18:
-            return True
-        else:
-            return False
 
 
 def new_patient(patient_name,
@@ -77,27 +31,6 @@ def new_patient(patient_name,
         error_message = "Server error: {}".format(r.text)
         logging.error(error_message)
         return error_message
-
-
-# def save_database():
-#     out_file = open("patient_monitor_db.txt",
-#                     "w")
-#     for patient in db:
-#         out_string = "{},{},{}\n".format(
-#             patient["name"],
-#             patient["mrn"],
-#             patient["dob"])
-#         out_file.write(out_string)
-#     out_file.close()
-
-#     with open("patient_monitor_db.txt", "w") as out_file:
-#         for patient in db:
-#             out_string = "{},{},{}\n".format(
-#                 patient["name"],
-#                 patient["mrn"],
-#                 patient["dob"])
-#             out_file.write(out_string)
-#     print("done")
 
 
 def read_database():
@@ -125,13 +58,6 @@ def parse_test_line(line):
     return mrn, test_result
 
 
-def get_patient_by_mrn(mrn):
-    for patient in db:
-        if patient.mrn == mrn:
-            return patient
-    return None
-
-
 def load_tests_into_db():
     # Load in the test file
     all_lines = load_test_file()
@@ -140,7 +66,6 @@ def load_tests_into_db():
         # Parse the data to get the mrn
         mrn, test_results = parse_test_line(line)
         add_test_to_patient(mrn, test_results)
-    print(db)
 
 
 def add_test_to_patient(mrn, test_results):
@@ -160,8 +85,6 @@ def initialize():
     all_lines = read_database()
     populate_db(all_lines)
     load_tests_into_db()
-    print("Database:")
-    print(db)
 
 
 def get_patients_for_display():
@@ -198,19 +121,3 @@ def get_latest_patient_ecg():
     ecg_time = np.append(ecg_time, t)
     ecg_voltage = np.append(ecg_voltage, v)
     return ecg_time, ecg_voltage
-
-
-if __name__ == "__main__":
-    x = Patient("Ann Ables", 123, "9/29/2011")
-    print(x.calculate_age())
-    print(x.is_minor())
-    print(x.mailing_address())
-
-"""
- dt = ecg_time[2] - ecg_time[1]
-    points = round(5 / dt)
-    start_point = len(ecg_time) - points
-    if start_point < 1:
-        start_point = 1
-    return ecg_time[start_point:], ecg_voltage[start_point:]
-"""

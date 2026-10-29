@@ -56,7 +56,7 @@ def process_new_patient(in_data):
                           in_data["mrn"],
                           in_data["dob"])
     db.append(new_patient)
-    print(db)
+    print(db)  # For debugging purposes
     return "Patient MRN={} added to database".format(in_data["mrn"])
 
 
@@ -78,6 +78,7 @@ def get_patient_for_server(mrn):
 def add_test_to_patient(mrn, test_name, test_value):
     patient = get_patient_by_mrn(mrn)
     patient.tests.append((test_name, test_value))
+    print(db) # For debugging purposes
     return "Added test"
 
 
