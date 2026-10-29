@@ -184,5 +184,11 @@ def post_add_test():
     return jsonify(answer), 200
 
 
+@app.route("/get_all_mrns", methods=["GET"])
+def get_get_all_mrns():
+    all_mrns = database.get_all_mrns()
+    return jsonify(all_mrns), 200
+
+
 if __name__ == "__main__":
     app.run()

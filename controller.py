@@ -2,6 +2,9 @@ from datetime import datetime
 import logging
 from mockpatient import MockPatient
 import numpy as np
+import requests
+
+server = "http://127.0.0.1:5000"
 
 
 db = []
@@ -63,13 +66,17 @@ def new_patient(patient_name,
     except ValueError:
         logging.error("MRN entered as not an integer")
         return "MRN must be an integer"
-    patient = Patient(patient_name,
-                      patient_mrn,
-                      patient_dob)
-    db.append(patient)
-    logging.info("Patient name {} saved".format(patient_name))
-    # save_database()
-    return "Patient added to database"
+    patient_json = {"name": patient_name,
+                    "mrn": mrn_number,
+                    "dob": patient_dob}
+    r = requests.post(server + "/add_patient", json=patient_json)
+    if r.status_code == 200:
+        logging.info("Patient name {} saved".format(patient_name))
+        return r.json()
+    else:
+        error_message = "Server error: {}".format(r.text)
+        logging.error(error_message)
+        return error_message
 
 
 # def save_database():
@@ -140,9 +147,10 @@ def add_test_to_patient(mrn, test_results):
     # Find the correct db entry based mrn
     print("mrn: {}".format(mrn))
     print("db: {}".format(db))
-    patient = get_patient_by_mrn(mrn)
-    # Add test result to correct patient
-    patient.tests.append(test_results)
+    test_json = {"mrn": int(mrn), "test_name": test_results[0],
+                 "test_value": test_results[1]}
+    r = requests.post(server+"/add_test", json=test_json)
+
 
 
 def initialize():
@@ -157,10 +165,15 @@ def initialize():
 
 def get_patients_for_display():
     output_list = []
-    for patient in db:
-        output_list.append("{} - {}".
-                           format(patient.name,
-                                  patient.mrn))
+    r = requests.get(server + "/get_all_mrns")
+    all_mrns = r.json()
+    for mrn in all_mrns:
+        r = requests.get(server + "/get_patient/{}".format(mrn))
+        patient_info = r.json()
+        output_list.append("{} - {}". format(
+            patient_info["name"],
+            patient_info["mrn"]
+        ))
     return output_list
 
 

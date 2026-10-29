@@ -79,3 +79,10 @@ def add_test_to_patient(mrn, test_name, test_value):
     patient = get_patient_by_mrn(mrn)
     patient.tests.append((test_name, test_value))
     return "Added test"
+
+
+def get_all_mrns():
+    all_mrns = []
+    for patient in db:
+        all_mrns.append(patient.mrn)
+    return all_mrns
