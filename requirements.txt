@@ -8,3 +8,5 @@ matplotlib
 requests
 requests-mock
 flask
+pymongo
+dnspython
