@@ -1,9 +1,21 @@
 from datetime import datetime
+from pymongo import MongoClient
 
 db = []
 
 
 class Patient:
+
+    client = None
+    database = None
+    collection = None
+
+    @classmethod
+    def make_connection(cls):
+        uri = "mongodb+srv://bme547_class:db_demo@bme547.ba348.mongodb.net/"
+        cls.client = MongoClient(uri)
+        cls.database = cls.client["db_demo"]
+        cls.collection = cls.database["Patient"]
 
     def __init__(self, p_name, p_mrn, p_dob):
         self.name = p_name
