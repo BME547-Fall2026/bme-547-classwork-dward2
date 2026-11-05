@@ -59,14 +59,14 @@ def delete_review():
 
 
 def main():
-    # create_review()
+    create_review()
     # retrieve_review()
     # retrieve_many_reviews()
     # update_review()
     # retrieve_many_reviews()
     # add_rating()
     # retrieve_review()
-    delete_review()
+    # delete_review()
 
 
 if __name__ == "__main__":
