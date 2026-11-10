@@ -1,7 +1,8 @@
 import pytest
 from server import app
-from database import db
+from database import Patient
 
+Patient.make_connection()
 client = app.test_client()
 
 
@@ -13,15 +14,15 @@ def test_server_status():
 
 def test_post_add_patient():
     # Arrange
-    db.clear()
+    Patient.clear_database()
     in_json = {"name": "David Ward",
                "mrn": 123,
                "dob": "1/21/2001"}
     # Act
     r = client.post("/add_patient", json=in_json)
     # Assert
-    assert len(db) == 1
-    assert db[0].name == "David Ward"
+    patient = Patient.find_by_mrn(123)
+    assert patient.name == "David Ward"
     assert r.status_code == 200
     assert r.get_json() == "Patient MRN=123 added to database"
     # The `r` response class returned by the Flask.test_client() is
@@ -32,13 +33,13 @@ def test_post_add_patient():
 
 def test_post_add_patient_bad_request():
     # Arrange
-    db.clear()
+    Patient.clear_database()
     in_json = {"name": "David Ward",
                "mrn": 123}
     # Act
     r = client.post("/add_patient", json=in_json)
     # Assert
-    assert len(db) == 0
+    assert Patient.find_by_mrn(123) is None
     assert r.status_code == 400
     assert r.text == "Key dob is missing"
 
@@ -61,7 +62,7 @@ def setup_patient():
     """
     Function to set up a patient for remaining tests
     """
-    db.clear()
+    Patient.clear_database()
     in_json = {"name": "Ann Ables",
                "mrn": 234,
                "dob": "2/2/2002"}
@@ -115,8 +116,9 @@ def test_post_add_test():
     r = client.post("/add_test", json=lab_data)
     # Assert
     assert r.status_code == 200
-    assert len(db[0].tests) == 1
-    assert db[0].tests == [("HDL", 23.0)]
+    patient = Patient.find_by_mrn(234)
+    assert len(patient.tests) == 1
+    assert patient.tests == [["HDL", 23.0]]
 
 
 def test_post_add_test_bad_validation():
@@ -128,7 +130,8 @@ def test_post_add_test_bad_validation():
     # Assert
     assert r.status_code == 400
     assert r.text == "JSON data needs to be a dictionary."
-    assert len(db[0].tests) == 0
+    patient = Patient.find_by_mrn(234)
+    assert len(patient.tests) == 0
 
 
 def test_post_add_test_missing_mrn():
