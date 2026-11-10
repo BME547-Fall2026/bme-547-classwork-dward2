@@ -1,13 +1,29 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, filedialog
 import controller
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import time
+from PIL import Image, ImageTk
+
 
 text_font = ("Arial", 24)
 status_font = ("Arial", 14)
+
+
+def load_image(filename):
+    pil_image = Image.open(filename)
+    max_size = 300
+    if pil_image.size[0] >= pil_image.size[1]:
+        new_width = max_size
+        new_height = max_size * pil_image.size[1] / pil_image.size[0]
+    else:
+        new_height = max_size
+        new_width = max_size * pil_image.size[0] / pil_image.size[1]
+    pil_image = pil_image.resize([round(new_width), round(new_height)])
+    tk_image = ImageTk.PhotoImage(pil_image)
+    return tk_image
 
 
 def main_window():
@@ -60,6 +76,15 @@ def main_window():
         mrn_value.set(patient_mrn)
         dob_value.set(patient_dob)
 
+    def image_select_btn_cmd():
+        image_fn = filedialog.askopenfilename(initialdir=".")
+        if image_fn == "":
+            return
+        tk_image = load_image(image_fn)
+        image_label.configure(image=tk_image)
+        image_label.store_image = tk_image
+
+
     root = tk.Tk()
     root.title("Patient Monitor")
     # root.geometry("800x500")
@@ -78,6 +103,11 @@ def main_window():
                            text="Data Frame Placeholder",
                            font=text_font)
     title_label.grid(column=0, row=0)
+
+    tk_image = load_image("./images/placeholder.png")
+    image_label = tk.Label(data_frame, image=tk_image)
+    image_label.store_image = tk_image
+    image_label.grid(column=0, row=2)
 
     # Patient Frame
     patient_frame = tk.Frame(root,
@@ -137,6 +167,12 @@ def main_window():
                                  font=text_font,
                                  command=load_patient_btn_cmd)
     load_patient_btn.grid(column=0, row=2)
+
+    image_select_btn = tk.Button(patient_frame,
+                                 text="Load Image",
+                                 font=text_font,
+                                 command=image_select_btn_cmd)
+    image_select_btn.grid(column=1, row=3)
 
     root.mainloop()
 
