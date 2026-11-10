@@ -84,7 +84,6 @@ def main_window():
         image_label.configure(image=tk_image)
         image_label.store_image = tk_image
 
-
     root = tk.Tk()
     root.title("Patient Monitor")
     # root.geometry("800x500")
