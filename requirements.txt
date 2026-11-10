@@ -10,3 +10,4 @@ requests-mock
 flask
 pymongo
 dnspython
+pillow
