@@ -1,8 +1,6 @@
 from datetime import datetime
 from pymongo import MongoClient
 
-db = []
-
 
 class Patient:
 
@@ -64,21 +62,55 @@ class Patient:
                     "tests": self.tests}
         return out_dict
 
+    def save(self):
+        document = self.collection.find_one({"_id": self.mrn})
+        mongo = {"_id": self.mrn,
+                 "name": self.name,
+                 "dob": self.dob,
+                 "tests": self.tests}
+        if document is None:
+            result = self.collection.insert_one(mongo)
+        else:
+            result = self.collection.replace_one({"_id": self.mrn}, mongo)
+        return result
+
+    def delete(self):
+        return self.collection.delete_one({"_id": self.mrn})
+
+    @classmethod
+    def find_by_mrn(cls, mrn):
+        item = cls.collection.find_one({"_id": mrn})
+        if item is None:
+            return None
+        mrn = item["_id"]
+        p_name = item["name"]
+        dob = item["dob"]
+        tests = item["tests"]
+        new_patient = Patient(p_name, mrn, dob)
+        new_patient.tests = tests
+        return new_patient
+
+    @classmethod
+    def get_all_mrns(cls):
+        mrns = cls.collection.distinct("_id")
+        return mrns
+
+    @classmethod
+    def clear_database(cls):
+        cls.collection.delete_many({})
+
 
 def process_new_patient(in_data):
     new_patient = Patient(in_data["name"],
                           in_data["mrn"],
                           in_data["dob"])
-    db.append(new_patient)
-    print(db)  # For debugging purposes
+    new_patient.save()
     return "Patient MRN={} added to database".format(in_data["mrn"])
 
 
 def get_patient_by_mrn(mrn):
-    for patient in db:
-        if patient.mrn == mrn:
-            return patient
-    return None
+    patient = Patient.find_by_mrn(mrn)
+    return patient
 
 
 def get_patient_for_server(mrn):
@@ -92,12 +124,10 @@ def get_patient_for_server(mrn):
 def add_test_to_patient(mrn, test_name, test_value):
     patient = get_patient_by_mrn(mrn)
     patient.tests.append((test_name, test_value))
-    print(db)  # For debugging purposes
+    patient.save()
     return "Added test"
 
 
 def get_all_mrns():
-    all_mrns = []
-    for patient in db:
-        all_mrns.append(patient.mrn)
+    all_mrns = Patient.get_all_mrns()
     return all_mrns
