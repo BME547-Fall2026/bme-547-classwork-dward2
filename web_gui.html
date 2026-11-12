@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<head>
+    <title>BME 547 Blood Donor Database</title>
+</head>
+
+<body>
+    <h1>Blood Donor Database</h1>
+    <h2>General Information</h2>
+    <p style="color:red;font-family:Verdana;
+    text-align:center">
+        Blood donor information is added to
+        the database.  It will include their name,
+        id number, blood type, and donation center.
+    </p>
+    <h4>Donor image</h4>
+    <img src="./images/placeholder.png" alt="Donor Image"
+    width="200", height="200">
+    <form method="post">
+        <label for="name_id">Donor Name:</label>
+        <input type="text" id="name_id", name="name_name" required>
+        <br>
+        <label for="id_id">Donor Id:</label>
+        <input type="text" id="id_id" name="id_name" required>
+        <br>
+        <label for="A_id">A</label>
+        <input type="radio" id="A_id" name="letter_choice" value="A" required>
+        <br>
+        <label for="B_id">B</label>
+        <input type="radio" id="B_id" name="letter_choice" value="B" required>
+        <br>
+        <label for="AB_id">AB</label>
+        <input type="radio" id="AB_id" name="letter_choice" value="AB" required>
+        <br>
+        <label for="O_id">O</label>
+        <input type="radio" id="O_id" name="letter_choice" value="O" required>
+        <br>
+        <label for="Rh_id">Rh Positive</label>
+        <input type="checkbox" id="Rh_id" name="Rh_value" value="+">
+        <br>
+        <label for="center_id">Donation Center:</label>
+        <select id="center_id" name="center_name" required>
+            <option value="" hidden disabled selected>-- Select an option --</option>
+            <option value="Durham">Durham</option>
+            <option value="Raleigh">Raleigh</option>
+            <option value="Cary">Cary</option>
+        </select>
+        <br>
+        <input type="submit" value="Enter">
+
+    </form>
+
+</body>
