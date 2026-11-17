@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<head>
+    <title>Donor Directory</title>
+</head>
+<body>
+    <h1>Blood Donor Directory</h1>
+    {% for patient in patients  %}
+        <p>Patient Name:  {{ patient["name"] }} <br>
+            Patient Id:  {{ patient["id"] }} <br>
+        </p>
+        {% if patient["id"] > 10 %}
+            <p>Original Patient</p>
+        {% else %}
+            <p>New Patient</p>
+        {% endif %}
+    {% endfor %}
+    <p>End of list</p>
+</body>
