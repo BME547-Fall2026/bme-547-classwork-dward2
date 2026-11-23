@@ -5,10 +5,10 @@ app = Flask(__name__)
 db = []
 
 
-def add_to_database(n, i, l, r, d):
+def add_to_database(n, i, letter, r, d):
     donor = {"name": n,
              "id": i,
-             "blood_letter": l,
+             "blood_letter": letter,
              "rh_factor": r,
              "center": d}
     db.append(donor)
@@ -44,7 +44,7 @@ def get_menu():
             return redirect(url_for("get_input"))
         else:
             return redirect(url_for("get_directory"))
-        
+
     return render_template("menu.html")
 
 
